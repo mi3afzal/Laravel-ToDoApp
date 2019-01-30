@@ -10,18 +10,15 @@
 				@if($todos != false) @foreach ($todos as $todo)
 
 				<li class="list-group-item">
-					<a class="secondary-content" href="{{url('/todo/'.$todo->id)}}">
-						<span class="glyphicon glyphicon-triangle-right"></span>
-					</a>
-					<a class="secondary-content" href="{{url('/todo/'.$todo->id).'/edit'}}">
-						<span class="glyphicon glyphicon-pencil"></span>
-					</a>
-					<a href="#" class="secondary-content" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a>
-					<form id="delete-form" action="{{url('/todo/'.$todo->id)}}" method="POST" style="display: none;">
-						{{ method_field('DELETE') }}{{ csrf_field() }}
-					</form> {{$todo->todo}}
+					{{$todo->todo}}
+					<span class="float-right">
+						<a class="secondary-content" href="{{url('/todo/'.$todo->id)}}">Detail</a>
+						<a class="secondary-content" href="{{url('/todo/'.$todo->id).'/edit'}}">Edit</a>
+						<a href="#" class="secondary-content" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">Delete</a>
+						<form id="delete-form" action="{{url('/todo/'.$todo->id)}}" method="POST" style="display: none;">
+							{{ method_field('DELETE') }}{{ csrf_field() }}
+						</form> 					
+					</span>
 				</li>
 
 				@endforeach @else

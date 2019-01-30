@@ -3,57 +3,64 @@
 @section( 'title', 'Edit Todo' )
 
 @section( 'content' )
-	<div class="row">
-		<div class="col-m-6">
-			<form class="form-horizontal" method="post" action="{{url('/todo/'.$todo->id)}}">
-				{{ csrf_field() }}
-				{{ method_field('PUT') }}
-				
-				<div class="form-group">
-					<label for="todo" class="col-sm-2 control-label">Todo</label>
-					<div class="col-md-5">
-						<input type="text" class="form-control" id="todo" name="todo" placeholder="todo" value="{{$todo->todo}}"> 
-						
-						@if ($errors->has('todo'))
-						<span class="help-block">
-							<strong>{{ $errors->first('todo') }}</strong>
-						</span>
-						@endif
-					</div>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card">
+                <div class="card-header">Update Todo</div>
+                <div class="card-body">
+					<form class="form-horizontal" method="post" action="{{url('/todo/'.$todo->id)}}">
+						{{ csrf_field() }}
+						{{ method_field('PUT') }}
+
+						<div class="form-group row">
+							<label for="todo" class="col-md-3 col-form-label text-md-right">Todo</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control {{ $errors->has('todo') ? ' is-invalid' : '' }}" id="todo" name="todo" placeholder="todo" value="{{$todo->todo}}" required> 
+
+								@if ($errors->has('todo'))
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $errors->first('todo') }}</strong>
+								</span>
+								@endif
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="category" class="col-md-3 col-form-label text-md-right">Category</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control {{ $errors->has('category') ? ' is-invalid' : '' }}" id="category" name="category" placeholder="category" value="{{$todo->category}}" required> 
+
+								@if ($errors->has('category'))
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $errors->first('category') }}</strong>
+								</span>
+								@endif
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="category" class="col-md-3 col-form-label text-md-right">Description</label>
+							<div class="col-md-8">
+								<textarea class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" name="description" placeholder="category" required>{{$todo->description}}</textarea> 
+
+								@if ($errors->has('description'))
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $errors->first('description') }}</strong>
+								</span>
+								@endif
+							</div>
+						</div>
+
+						<div class="form-group row mb-0">
+							<div class="offset-md-3 col-md-8">
+								<button type="submit" class="btn btn-primary">Update</button>
+							</div>
+						</div>
+					</form>
 				</div>
-				
-				<div class="form-group">
-					<label for="category" class="col-sm-2 control-label">Category</label>
-					<div class="col-md-5">
-						<input type="text" class="form-control" id="category" name="category" placeholder="category" value="{{$todo->category}}"> 
-						
-						@if ($errors->has('category'))
-						<span class="help-block">
-							<strong>{{ $errors->first('category') }}</strong>
-						</span>
-						@endif
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="category" class="col-sm-2 control-label">Description</label>
-					<div class="col-md-5">
-						<textarea class="form-control" id="description" name="description" placeholder="category" value="{{$todo->description}}"></textarea> 
-						
-						@if ($errors->has('description'))
-						<span class="help-block">
-							<strong>{{ $errors->first('description') }}</strong>
-						</span>
-						@endif
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-md-5">
-						<button type="submit" class="btn btn-default">Add</button>
-					</div>
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
+</div>
 @endsection

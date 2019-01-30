@@ -41,7 +41,7 @@
 						<div class="form-group row">
 							<label for="category" class="col-md-3 col-form-label text-md-right">Description</label>
 							<div class="col-md-8">
-								<textarea class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" name="description" placeholder="category" value="{{ old('description') }}" required></textarea> 
+								<textarea class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" name="description" placeholder="category" required>{{ old('description') }}</textarea> 
 
 								@if ($errors->has('description'))
 								<span class="invalid-feedback" role="alert">
