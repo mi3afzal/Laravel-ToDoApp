@@ -4,19 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
+	{
+		$result = Auth::user()->todo()->get();
+		
+		if($result->isEmpty()) $result = false;
 
+		return view('todo.index',['todos'=>$result,'image'=>Auth::user()->userimage,'username'=>Auth::user()->name]);
+	}
+	
+	/**
+	* Get a validator for an incoming Todo request.
+	*
+	* @param  array  $request
+	* @return \Illuminate\Contracts\Validation\Validator
+	*/
+	protected function validator(array $request)
+	{
+		return Validator::make($request, [
+			'todo' => 'required',
+			'description' => 'required',
+			'category' => 'required'
+		]);
+	}
+	
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +50,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todo.add');
     }
 
     /**
@@ -35,7 +61,10 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validator($request->all())->validate();
+		if(Auth::user()->todo()->Create($request->all())){
+			return $this->index();
+		}
     }
 
     /**
@@ -46,7 +75,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return view('todo.todo', ['todo' => $todo]);
     }
 
     /**
@@ -57,7 +86,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        return view('todo.edit',['todo' => $todo]);
     }
 
     /**
@@ -69,7 +98,10 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $this->validator($request->all())->validate();
+		if($todo->fill($request->all())->save()){
+			return $this->show($todo);
+		}
     }
 
     /**
@@ -80,6 +112,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        if($todo->delete()){
+			return back();
+		}
     }
 }
