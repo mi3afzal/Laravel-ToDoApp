@@ -68,7 +68,7 @@
                             <div class="col-md-6">
                                 <input id="userimage" type="file" class="form-control {{ $errors->has('userimage') ? ' is-invalid' : '' }}" name="userimage" required>
                                 @if ($errors->has('userimage'))
-                                    <span class="help-block">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('userimage') }}</strong>
                                     </span>
                                 @endif
