@@ -14,7 +14,7 @@
 					<span class="float-right">
 						<a class="secondary-content" id="view{{$todo->id}}" href="{{url('/todo/'.$todo->id)}}">Detail</a>
 						<a class="secondary-content" id="edit{{$todo->id}}" href="{{url('/todo/'.$todo->id).'/edit'}}">Edit</a>
-						<a class="secondary-content" id="delete{{$todo->id}}" href="#" onclick="event.preventDefault(); document.getElementById('delete-form{{$todo->id}}').submit();">Delete</a>
+						<a class="secondary-content" id="delete{{$todo->id}}" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form{{$todo->id}}').submit();">Delete</a>
 						<form id="delete-form{{$todo->id}}" action="{{url('/todo/'.$todo->id)}}" method="POST" style="display: none;">
 							{{ method_field('DELETE') }}{{ csrf_field() }}
 						</form> 					

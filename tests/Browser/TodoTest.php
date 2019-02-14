@@ -80,11 +80,11 @@ class TodoTest extends DuskTestCase
 	public function testLogout()
 	{
 		$this->browse(function ($browser) {
-			$browser->visit('todo')
-				->click('M. Irfan Afzal')
-				->assertVisible('Logout')
+			$browser->visit('/todo')
+				->click('.navbar-user-links')
+				->assertVisible('#logout')
 				->clickLink('Logout')
-				->assertPathIs('/learn/laravel/todoapp/public/login');
+				->assertPathIs('/learn/laravel/todoapp/public/');
 		});
 	}
 	
@@ -102,13 +102,13 @@ class TodoTest extends DuskTestCase
 	public function testDeleteTodo()
 	{
 		$this->browse(function ($browser) {
-			$browser->visit('todo')
+			$browser->visit('/todo')
 				->assertVisible('#delete1')
 				->clickLink('Delete')
-				/*->visit(
-					$browser->attribute('#delete1', 'href')
-				)*/
-				->assertPathIs('/learn/laravel/todoapp/public/todo');
+				//->visit(
+//					$browser->attribute('#delete1', 'href')
+//				)
+				->assertPathIs('/learn/laravel/todoapp/public//todo');
 		});
 	}
 	
